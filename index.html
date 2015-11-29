@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+  <div class='container'>
+    <div class='page-header'>
+        <h1>表单编辑器</h1>
+    </div>
+    <div class='row'>
+        <div class='col-md-6'>
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" id='expr' rows="24">
+选择题：
+让学生看图，运用经纬网的知识，说出北京所在的地理位置。
+记忆@识别(recognizing)
+记忆@回忆(recalling)
+理解@解释(interpreting)
+
+选择题：
+要求学生在一个文字题中圈划出有关数字和删去无关数字。
+分析@区分(differentiating)
+分析@组织(organizing)
+分析@归属(attributing)
+评价@核查(checking)
+评价@评判(critiquing)
+创造@生成(generating)
+创造@计划(planning)
+创造@产生(producing)
+
+                    </textarea>
+                </div>
+                <button type="submit" class="submit btn btn-default">Submit</button>
+            </form>
+        </div>
+        <div class='col-md-6' id='front-display'>
+        </div>
+    </div>
+  </div>
+  <script type="text/javascript" src='./parser.js'></script>
+  <script type="text/javascript" src='../bower_components/jquery/dist/jquery.min.js'></script>
+  <script type="text/javascript" src='bundle.js'></script>
+  <script type="text/javascript">
+    $("button.submit").click(function(e){
+        e.preventDefault();
+        var expr = $("#expr").val();
+
+        AppDispatcher.dispatch({
+          actionType: "DataChange",
+          data: parser.parse(expr)
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+start=
+  _* expr:expression _*
+    {return expr;}
+
+expression =
+  q:question nq:newlineQuestion*
+    {return [q].concat(nq); }
+
+newlineQuestion =
+  [\n]+ q:question
+    {return q;}
+
+question =
+  t:type lines:line*
+    {
+      return {tag:'radio', title:lines.shift(), options:lines }
+    }
+
+line =
+  [\n] expr:validchar+
+    {return expr.join('');}
+
+type =
+  expr:'选择题：'
+    {return expr;}
+
+_ =
+  [ \n\t\r]
+
+validchar =
+  [^\n\r]
