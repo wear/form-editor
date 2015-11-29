@@ -13,7 +13,7 @@ newlineQuestion =
 question =
   t:type lines:line*
     {
-      return {tag:'radio', title:lines.shift(), options:lines }
+      return {tag:t, label:lines.shift(), options:lines }
     }
 
 line =
@@ -21,8 +21,15 @@ line =
     {return expr.join('');}
 
 type =
-  expr:'选择题：'
-    {return expr;}
+  '单选题'
+    {return 'radio'}
+  / '多选题'
+    {return 'checkbox'}
+  / '文本题'
+    {return 'text'}
+  / '大段文本题'
+    {return 'textarea'}
+
 
 _ =
   [ \n\t\r]
