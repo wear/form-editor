@@ -11,28 +11,39 @@ newlineQuestion =
     {return q;}
 
 question =
-  t:type lines:line*
+  t:typeMark lines:line*
     {
-      return {tag:t, label:lines.shift(), options:lines }
+      var quesion = {tag: t, label: lines.shift().label};
+      if(lines.length > 1 && lines[lines.length-1].tag === 'tip'){
+        quesion.tip = lines.pop().label;
+      }
+      quesion.options = lines;
+      return quesion;
     }
 
 line =
-  [\n] expr:validchar+
-    {return expr.join('');}
+  [\n]+ !typeMark t:lineBody
+    {return t;}
 
-type =
+lineBody =
+  answerMark [ ]+ expr:validchar+
+    {return {label: expr.join(''), tag: 'answer'};}
+  /  "提示：" expr:validchar+
+    {return {tag: 'tip', label: expr.join('')}}
+  / expr:validchar+
+    {return {label: expr.join(''), tag: 'option'};}
+
+typeMark =
   '单选题'
     {return 'radio'}
   / '多选题'
     {return 'checkbox'}
-  / '文本题'
-    {return 'text'}
-  / '大段文本题'
-    {return 'textarea'}
-
 
 _ =
   [ \n\t\r]
 
 validchar =
   [^\n\r]
+
+answerMark =
+  "*" / "＊"

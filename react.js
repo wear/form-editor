@@ -1,23 +1,23 @@
 var React = require('react');
 var Dispatcher = require('flux').Dispatcher;
 var ReactDOM = require('react-dom');
-var Store = require('./react/store')
+var Store = require('./react/store');
+var classNames = require('classNames');
 
 var RadioInput = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string,
-    options: React.PropTypes.array
-  },
+  mixins: [InputMixin],
   render: function() {
-    var options = this.props.options.map(function(label, i){
+    var options = this.props.options.map(function(item, i){
       var name = "q_" + i;
-      return (<RadioOption label={label} name={name} key={i} />);
-    })
+      var isAnswer = item.tag === 'answer';
+      return (<RadioOption label={item.label} name={name} isAnswer={isAnswer} key={i} />);
+    });
 
     return (
       <div className='form-group'>
         <label>{this.props.label}</label>
         {options}
+        <div className='help-block'>{this.props.tip}</div>
       </div>
     );
   }
@@ -25,13 +25,12 @@ var RadioInput = React.createClass({
 
 
 var RadioOption = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
-  },
+  mixins: [OptionMixin],
   render: function(){
+    var optionClass = classNames('radio', {'has-success' : this.props.isAnswer})
+
     return(
-      <div className="radio">
+      <div className={optionClass}>
         <label>
           <input type="radio" name={this.props.name} />
           {this.props.label}
@@ -41,68 +40,32 @@ var RadioOption = React.createClass({
   }
 });
 
-var StringInput = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
-  },
-  render: function(){
-    return(
-      <div className="form-group">
-        <label>
-          {this.props.label}
-        </label>
-        <input type="text" className='form-control' name={this.props.name} />
-      </div>
-    )
-  }
-});
-
-var TextArea = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
-  },
-  render: function(){
-    return(
-      <div className="form-group">
-        <label>
-          {this.props.label}
-        </label>
-        <textarea className='form-control' rows='3' name={this.props.name} />
-      </div>
-    )
-  }
-});
-
 var CheckboxTag = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string,
-    options: React.PropTypes.array
-  },
+  mixins: [InputMixin],
   render: function() {
-    var options = this.props.options.map(function(label, i){
+    var options = this.props.options.map(function(item, i){
       var name = "q_" + i;
-      return (<CheckOption label={label} name={name} key={i} />);
+      var isAnswer = item.tag === 'answer';
+      return (<CheckOption label={item.label} name={name} isAnswer={isAnswer} key={i} />);
     })
 
     return (
       <div className='form-group'>
         <label>{this.props.label}</label>
         {options}
+        <div className='help-block'>{this.props.tip}</div>
       </div>
     );
   }
 });
 
 var CheckOption = React.createClass({
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
-  },
+  mixins: [OptionMixin],
   render: function(){
+    var optionClass = classNames('checkbox', {'has-success' : this.props.isAnswer})
+
     return(
-      <div className="checkbox">
+      <div className={optionClass}>
         <label>
           <input type="checkbox" name={this.props.name} />
           {this.props.label}
@@ -110,10 +73,23 @@ var CheckOption = React.createClass({
       </div>
     )
   }
-})
+});
 
+var InputMixin = {
+  propTypes: {
+    label: React.PropTypes.string.isRequired,
+    options: React.PropTypes.array,
+    tip: React.PropTypes.string
+  }
+}
 
-
+var OptionMixin = {
+  propTypes: {
+    label: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
+    isAnswer: React.PropTypes.bool
+  }
+}
 
 var FormContainer = React.createClass({
   getInitialState: function(){
@@ -132,13 +108,9 @@ var FormContainer = React.createClass({
     var inputs = this.state.inputs.map(function(input, i){
       switch(input.tag){
           case 'radio':
-            return <RadioInput label={input.label} options={input.options} key={i} />
-          case 'text':
-            return <StringInput label={input.label} key={i} name='sd' />
-          case 'textarea':
-            return <TextArea label={input.label} name='s' key={i} />
+            return <RadioInput {...input} key={i} />
           case 'checkbox':
-            return <CheckboxTag label={input.label} options={input.options} key={i} name='s' />
+            return <CheckboxTag {...input} key={i} name='s' />
           default:
               // nope;
       }

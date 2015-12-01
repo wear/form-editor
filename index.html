@@ -17,22 +17,8 @@
         <div class='col-md-6'>
             <form>
                 <div class="form-group">
-                    <textarea class="form-control" id='expr' rows="24">
-单选题
-让学生看图，运用经纬网的知识，说出北京所在的地理位置。
-记忆@识别(recognizing)
-记忆@回忆(recalling)
-理解@解释(interpreting)
-
-文本题
-要求学生在一个文字题中圈划出有关数字和删去无关数字。
-
-大段文本题
-要求学生在一个文字题中圈划出有关数字和删去无关数字。
-
-                    </textarea>
+                    <textarea class="form-control" id='expr' rows="24"></textarea>
                 </div>
-                <button type="submit" class="submit btn btn-default">Submit</button>
             </form>
         </div>
         <div class='col-md-6' id='front-display'>
@@ -48,15 +34,12 @@
       lineNumbers: true
     });
 
-    $("button.submit").click(function(e){
-        e.preventDefault();
-        var expr = editor.getValue();
-
+    editor.on('change', function(){
         AppDispatcher.dispatch({
           actionType: "DataChange",
-          data: parser.parse(expr)
+          data: parser.parse(editor.getValue())
         });
-    });
+    })
   </script>
 </body>
 </html>
