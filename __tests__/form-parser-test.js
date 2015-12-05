@@ -1,4 +1,3 @@
-jest.dontMock('../parser');
 jest.dontMock('pegjs');
 
 var PEG = require('pegjs');

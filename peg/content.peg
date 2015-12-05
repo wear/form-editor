@@ -1,0 +1,37 @@
+start =
+  _* expr:expression _*
+    {return expr;}
+
+expression =
+    left:validchar* m:markup right:expression
+      {return {left:left.join(''), markup:m, right:right} }
+  / v:validchar*
+    {return v.join('')}
+
+markup =
+    code
+  / media
+
+
+media =
+  '![' t:mediaTag '](' m:mediaString+ ')'
+    {return {tag:t, body:m.join('')}}
+
+mediaTag =
+  'image' / 'video' / 'audio'
+
+mediaString =
+  [^\n\r)]
+
+code =
+  _* '```' _* v:validcode+ _* '```' _*
+    {return {tag:'code', body:v.join('')};}
+
+validcode =
+  [^```]
+
+validchar =
+  [^\n\r```!]
+
+_ =
+  [ \n\t\r]
