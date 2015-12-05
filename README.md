@@ -5,3 +5,8 @@ create parser
 generate react jsx
 
 `browserify -t reactify react.js -o bundle.js`
+
+
+// todo
+
+Add input name support

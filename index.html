@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/codemirror/lib/codemirror.css">
 </head>
 <body>
   <div class='container'>
@@ -25,10 +25,10 @@
         </div>
     </div>
   </div>
-  <script type="text/javascript" src='./parser.js'></script>
-  <script type="text/javascript" src='../bower_components/jquery/dist/jquery.min.js'></script>
-  <script type="text/javascript" src="../bower_components/codemirror/lib/codemirror.js"></script>
-  <script type="text/javascript" src='bundle.js'></script>
+  <script type="text/javascript" src='./build/form-parser.js'></script>
+  <script type="text/javascript" src='./bower_components/jquery/dist/jquery.min.js'></script>
+  <script type="text/javascript" src="./bower_components/codemirror/lib/codemirror.js"></script>
+  <script type="text/javascript" src='./build/bundle.js'></script>
   <script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("expr"),{
       lineNumbers: true
@@ -37,7 +37,7 @@
     editor.on('change', function(){
         AppDispatcher.dispatch({
           actionType: "DataChange",
-          data: parser.parse(editor.getValue())
+          data: formParser.parse(editor.getValue())
         });
     })
   </script>
