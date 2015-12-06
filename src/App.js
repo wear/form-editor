@@ -1,13 +1,19 @@
-var formParser = require('../build/form-parser');
-var rowParser = require('../build/row-parser');
+var formCompile = require('./utils/Compiler');
+var AppDispatcher = require('./AppDispatcher');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var FormComponent = require('./FormComponent')
 
-var compile = function(expr){
-  var parsedInputs = formParser.parse(expr);
-
-  for (var i = parsedInputs.length - 1; i >= 0; i--) {
-    var input = parsedInputs[i];
-    input.options.map(function(option){
-      option.label = rowParser(option.label);
-    })
-  };
+window.compileForm = function(expr){
+  AppDispatcher.dispatch({
+    actionType: "DataChange",
+    data: formCompile(expr)
+  });
 }
+
+window.React = React;
+
+ReactDOM.render(
+  <FormComponent inputs={[]} />,
+  document.getElementById('front-display')
+);

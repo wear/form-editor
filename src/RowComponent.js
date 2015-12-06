@@ -2,34 +2,34 @@ var React = require('react');
 
 var CodeComponent = React.createClass({
   render: function(){
-    return (<p>{this.props.code}</p>);
-  };
+    return (<p>{this.props.code}</p>)
+  }
 });
 
 var ImageComponent = React.createClass({
   render: function(){
     return (<p>{this.props.src}</p>);
-  };
+  }
 });
 
 var VideoComponent = React.createClass({
   render: function(){
     return (<p>{this.props.src}</p>);
-  };
+  }
 });
 
 var AudioComponent = React.createClass({
   render: function(){
     return (<p>{this.props.src}</p>);
-  };
+  }
 });
 
 var rowComponent = React.createClass({
   propTypes: {
-    content: React.PropTypes.array
+    lines: React.PropTypes.array
   },
   render: function(){
-    var parsedLines = lines.map(function(line){
+    var parsedLines = this.props.lines.map(function(line){
       return compileLine(line);
     }, this)
 
@@ -38,20 +38,22 @@ var rowComponent = React.createClass({
 });
 
 var compileLine = function(line){
-  if((typeof line) == 'string'){
-    return <p>line</p>];
+  if((typeof line) === 'string'){
+    return <p>line</p>;
   } else {
-    return switch(line.tag){
+    switch(line.tag){
       case 'code':
-        <CodeComponent code={line.body} />
+        return <CodeComponent code={line.body} />
       case 'image':
-        <ImageComponent src={line.body} />
+        return <ImageComponent src={line.body} />
       case 'video':
-        <VideoComponent src={line.body} />
+        return <VideoComponent src={line.body} />
       case 'audio':
-        <AudioComponent src={line.body} />
+        return <AudioComponent src={line.body} />
       default:
         // nope
     }
   }
 }
+
+module.exports = rowComponent;

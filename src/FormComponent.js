@@ -16,7 +16,7 @@ var RadioInput = React.createClass({
 
     return (
       <div className='form-group'>
-        <label><RowComponent content={this.props.label} /></label>
+        <label><RowComponent lines={this.props.label} /></label>
         {options}
         <div className='help-block'>{this.props.tip}</div>
       </div>
@@ -92,13 +92,7 @@ var OptionMixin = {
   }
 }
 
-var rowComponent = {
-  propTypes: {
-    content:
-  }
-}
-
-var FormContainer = React.createClass({
+var FormComponent = React.createClass({
   getInitialState: function(){
     return {inputs: []};
   },
@@ -131,9 +125,4 @@ var FormContainer = React.createClass({
 
 });
 
-window.React = React;
-
-module.exports = ReactDOM.render(
-  <FormContainer inputs={[]} />,
-  document.getElementById('front-display')
-);
+module.exports = FormComponent;

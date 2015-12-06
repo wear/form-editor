@@ -5,12 +5,11 @@ var gulp = require('gulp'),
 gulp.task("peg:compile", function(){
   gulp
     .src( "./peg/form-parser.peg" )
-    .pipe( peg().on( "error", gutil.log ) )
+    .pipe( peg({exportVar:'formParser'}).on( "error", gutil.log ) )
     .pipe( gulp.dest( "build" ) )
 
   gulp
-    .src( "./peg/row-parser.peg" )
-    .pipe( peg().on( "error", gutil.log ) )
+    .src( "./peg/content-parser.peg" )
+    .pipe( peg({exportVar:'contentParser'}).on( "error", gutil.log ) )
     .pipe( gulp.dest( "build" ) )
 })
-

@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('default', ['clean','browserify', 'peg:compile']);
+gulp.task('default', ['clean','browserify']);

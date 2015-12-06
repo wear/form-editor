@@ -1,6 +1,6 @@
 jest.dontMock('../src/utils/Compiler.js');
 jest.dontMock('../src/utils/RowCompiler')
-
+jest.dontMock('pegjs')
 
 var fs = require('fs');
 var compileForm = require('../src/utils/Compiler.js');
