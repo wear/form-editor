@@ -1,8 +1,8 @@
 var PEG = require('pegjs');
 var fs = require('fs');
 var PEG = require('pegjs');
-var formPeg = fs.readFileSync(__dirname+'/../../peg/form-parser.peg', 'utf-8');
-var rowPeg = fs.readFileSync(__dirname+'/../../peg/row-parser.peg', 'utf-8');
+var formPeg = fs.readFileSync(__dirname+'/../peg/form-parser.peg', 'utf-8');
+var rowPeg = fs.readFileSync(__dirname+'/../peg/row-parser.peg', 'utf-8');
 var formParser = PEG.buildParser(formPeg);
 var rowParser = PEG.buildParser(rowPeg);
 
