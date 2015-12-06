@@ -39,7 +39,8 @@
     "rootDir": "./",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/pegjs"
+      "<rootDir>/node_modules/pegjs",
+      "<rootDir>/build"
     ]
   }
 }

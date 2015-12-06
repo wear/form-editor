@@ -35,10 +35,11 @@
     });
 
     editor.on('change', function(){
-        AppDispatcher.dispatch({
-          actionType: "DataChange",
-          data: formParser.parse(editor.getValue())
-        });
+      console.log(formParser.parse(editor.getValue()))
+        // AppDispatcher.dispatch({
+        //   actionType: "DataChange",
+        //   data: formParser.parse(editor.getValue())
+        // });
     })
   </script>
 </body>

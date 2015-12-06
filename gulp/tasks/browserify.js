@@ -12,7 +12,7 @@ var dest = './build/';
 
 gulp.task('browserify', function(){
     var bundler = browserify({
-        entries: ['./react/app.js'],
+        entries: ['./src/App.js'],
         debug: !argv.prod,
         cache: {}, packageCache: {}, fullPaths: true
       });
