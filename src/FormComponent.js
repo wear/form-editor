@@ -1,6 +1,4 @@
 var React = require('react');
-var Dispatcher = require('flux').Dispatcher;
-var ReactDOM = require('react-dom');
 var Store = require('./Store');
 var classNames = require('classNames');
 var RowComponent = require('./RowComponent');
@@ -34,7 +32,7 @@ var RadioOption = React.createClass({
       <div className={optionClass}>
         <label>
           <input type="radio" name={this.props.name} />
-          {this.props.label}
+          <RowComponent lines={this.props.label} />
         </label>
       </div>
     )
@@ -52,7 +50,7 @@ var CheckboxTag = React.createClass({
 
     return (
       <div className='form-group'>
-        <label>{this.props.label}</label>
+        <label><RowComponent lines={this.props.label} /></label>
         {options}
         <div className='help-block'>{this.props.tip}</div>
       </div>
@@ -69,7 +67,7 @@ var CheckOption = React.createClass({
       <div className={optionClass}>
         <label>
           <input type="checkbox" name={this.props.name} />
-          {this.props.label}
+          <RowComponent lines={this.props.label} />
         </label>
       </div>
     )
@@ -86,7 +84,7 @@ var InputMixin = {
 
 var OptionMixin = {
   propTypes: {
-    label: React.PropTypes.string.isRequired,
+    label: React.PropTypes.array.isRequired,
     name: React.PropTypes.string.isRequired,
     isAnswer: React.PropTypes.bool
   }

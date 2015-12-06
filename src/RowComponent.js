@@ -2,7 +2,7 @@ var React = require('react');
 
 var CodeComponent = React.createClass({
   render: function(){
-    return (<p>{this.props.code}</p>)
+    return (<code>{this.props.code}</code>)
   }
 });
 
@@ -24,36 +24,35 @@ var AudioComponent = React.createClass({
   }
 });
 
-var rowComponent = React.createClass({
+var RowComponent = React.createClass({
   propTypes: {
-    lines: React.PropTypes.array
+    lines: React.PropTypes.array.isRequired
   },
   render: function(){
-    var parsedLines = this.props.lines.map(function(line){
-      return compileLine(line);
+    var parsedLines = this.props.lines.map(function(line, index){
+      return compileLine(line, index);
     }, this)
-
     return (<div>{parsedLines}</div>);
   }
 });
 
-var compileLine = function(line){
+var compileLine = function(line, key){
   if((typeof line) === 'string'){
-    return <p>line</p>;
+    return (<p key={key}>{line}</p>);
   } else {
     switch(line.tag){
       case 'code':
-        return <CodeComponent code={line.body} />
+        return (<code key={key} >{line.body}</code>);
       case 'image':
-        return <ImageComponent src={line.body} />
+        return (<img key={key} src={line.body} />)
       case 'video':
-        return <VideoComponent src={line.body} />
+        return <VideoComponent key={key} src={line.body} />
       case 'audio':
-        return <AudioComponent src={line.body} />
+        return <AudioComponent key={key} src={line.body} />
       default:
         // nope
     }
   }
 }
 
-module.exports = rowComponent;
+module.exports = RowComponent;
