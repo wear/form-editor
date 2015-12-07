@@ -1,11 +1,11 @@
 单选题
-让学生看图，运用经纬网的知识，说出北京所在的地理位置。
+让学生看图，运用经纬网的知识，说出北京所在的地理位置。```test```
 记忆@识别(recognizing)
 记忆@回忆(recalling)
 理解@解释(interpreting)
 
 多选题
-要求学生在一个文字题中圈划出有关数字和删去无关数字。
+要求学生在一个文字题中圈划出有关数字和删去无关数字。![image](http://nathansuniversity.com/gfx/logo.png)
 分析@区分(differentiating)
 分析@组织(organizing)
 分析@归属(attributing)
@@ -14,4 +14,5 @@
 创造@生成(generating)
 创造@计划(planning)
 创造@产生(producing)
+
 

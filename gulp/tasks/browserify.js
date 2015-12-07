@@ -6,13 +6,14 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     handleErrors = require('../utils/handle-errors');
     reactify = require('reactify'),
+    brfs = require('brfs'),
     uglify = require('gulp-uglify');
 
 var dest = './build/';
 
 gulp.task('browserify', function(){
     var bundler = browserify({
-        entries: ['./react/app.js'],
+        entries: ['./src/App.js'],
         debug: !argv.prod,
         cache: {}, packageCache: {}, fullPaths: true
       });
@@ -22,6 +23,7 @@ gulp.task('browserify', function(){
 
 function bundleShare(b, s){
     b.transform(reactify)
+    .transform(brfs)
     .bundle()
     .on('error', handleErrors)
     .pipe(source(s))

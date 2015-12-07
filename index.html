@@ -25,7 +25,6 @@
         </div>
     </div>
   </div>
-  <script type="text/javascript" src='./build/form-parser.js'></script>
   <script type="text/javascript" src='./bower_components/jquery/dist/jquery.min.js'></script>
   <script type="text/javascript" src="./bower_components/codemirror/lib/codemirror.js"></script>
   <script type="text/javascript" src='./build/bundle.js'></script>
@@ -35,10 +34,7 @@
     });
 
     editor.on('change', function(){
-        AppDispatcher.dispatch({
-          actionType: "DataChange",
-          data: formParser.parse(editor.getValue())
-        });
+      compileForm(editor.getValue());
     })
   </script>
 </body>
