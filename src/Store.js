@@ -1,5 +1,4 @@
-var Dispatcher = require('flux').Dispatcher;
-var AppDispatcher = new Dispatcher();
+var AppDispatcher = require('./AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 

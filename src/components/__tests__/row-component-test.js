@@ -2,7 +2,7 @@ jest.dontMock('../RowComponent');
 
 var React = require('react'),
     RowComponent = require('../RowComponent'),
-    SpecHelper = require('../SpecHelper');
+    SpecHelper = require('../../SpecHelper');
 
 describe('row component', function() {
   it('render pure string', function() {
