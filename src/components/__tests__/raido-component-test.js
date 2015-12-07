@@ -14,8 +14,6 @@ describe('radio component', function() {
     })
 
     var helpBlock = React.DOM.div({className:'help-block'}, 'test tip')
-    var label = React.DOM.label({})
     expect(vdom.props.children[0].type).toEqual('label')
-    expect(vdom.props.children[0]).toEqual(label)
   });
 });
