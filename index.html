@@ -7,17 +7,19 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="src/assets/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="src/assets/demo.css">
 </head>
 <body>
   <div class='container'>
     <div class='page-header'>
-        <h1>表单编辑器</h1>
+        <h3>表单编辑器</h3>
     </div>
     <div class='row'>
         <div class='col-md-6'>
-            <form>
+            <form id='expr-form'>
                 <div class="form-group">
-                    <textarea class="form-control" id='expr' rows="24"></textarea>
+                    <textarea class="form-control" id='expr'></textarea>
                 </div>
             </form>
         </div>
@@ -30,7 +32,9 @@
   <script type="text/javascript" src='./build/bundle.js'></script>
   <script type="text/javascript">
     var editor = CodeMirror.fromTextArea(document.getElementById("expr"),{
-      lineNumbers: true
+      lineNumbers: true,
+      styleActiveLine: true,
+      matchBrackets: true
     });
 
     editor.on('change', function(){

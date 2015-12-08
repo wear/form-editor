@@ -1,0 +1,19 @@
+body{
+  font: 14px/1.7 "Microsoft Yahei", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+  background-color: #f8f8f8;
+}
+
+#front-display{
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 4px;
+  height: 540px;
+  overflow: scroll;
+}
+
+.CodeMirror{
+  border: 1px solid #e1e1e8;
+}
+
