@@ -2,6 +2,7 @@ var React = require('react');
 var Store = require('../Store');
 var RadioComponent = require('./RadioComponent');
 var CheckboxComponent = require('./CheckboxComponent');
+var RowComponent = require('./RowComponent');
 
 var FormComponent = React.createClass({
   getInitialState: function(){
@@ -23,6 +24,8 @@ var FormComponent = React.createClass({
           return <RadioComponent {...input} key={i} name='s' />
         case 'checkbox':
           return <CheckboxComponent {...input} key={i} name='s' />
+        case 'p':
+          return <RowComponent lines={input.body} />
         default:
             // nope;
       }

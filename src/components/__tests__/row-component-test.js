@@ -6,9 +6,8 @@ var React = require('react'),
 
 describe('row component', function() {
   it('render pure string', function() {
-
-    var vdom = SpecHelper.getVdom(RowComponent, {lines: ['test']}).props.children[0];
-    expect(vdom.props.children).toEqual('test')
+    var result = SpecHelper.getVdom(RowComponent, {lines: ['test']}).props.children[0];
+    expect(result).toEqual('test')
   })
 
   it('render code', function() {
@@ -18,9 +17,8 @@ describe('row component', function() {
     var vdom1 = component.props.children[0];
     var vdom2 = component.props.children[1];
 
-    expect(vdom1.props.children).toEqual('test');
-    expect(vdom2.type).toEqual('code');
-    expect(vdom2.props.children).toEqual('code');
+    expect(vdom1).toEqual('test');
+    expect(vdom2.type).toEqual('code' );
   })
 
   it('render code', function() {
@@ -30,7 +28,7 @@ describe('row component', function() {
     var vdom1 = component.props.children[0];
     var vdom2 = component.props.children[1];
 
-    expect(vdom1.props.children).toEqual('test');
+    expect(vdom1).toEqual('test');
     expect(vdom2.type).toEqual('img');
     expect(vdom2.props.src).toEqual('image');
   })

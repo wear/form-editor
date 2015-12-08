@@ -4,7 +4,7 @@ var RowComponent = require('./RowComponent');
 
 var RadioComponent = React.createClass({
   propTypes: {
-    label: React.PropTypes.string.isRequired,
+    label: React.PropTypes.array.isRequired,
     options: React.PropTypes.array,
     tip: React.PropTypes.string
   },

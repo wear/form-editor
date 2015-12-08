@@ -38,11 +38,14 @@ var RowComponent = React.createClass({
 
 var compileLine = function(line, key){
   if((typeof line) === 'string'){
-    return (<p key={key}>{line}</p>);
+    return line;
   } else {
     switch(line.tag){
       case 'code':
-        return (<code key={key} >{line.body}</code>);
+        var content = line.body.split('\n').map(function(l,i){
+          return <span key={i}>{l}<br /></span>
+        })
+        return (<code key={key} >{content}</code>);
       case 'image':
         return (<img key={key} src={line.body} />)
       case 'video':

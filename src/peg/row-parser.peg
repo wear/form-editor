@@ -12,7 +12,6 @@ markup =
     code
   / media
 
-
 media =
   '![' t:mediaTag '](' m:mediaString+ ')'
     {return {tag:t, body:m.join('')}}

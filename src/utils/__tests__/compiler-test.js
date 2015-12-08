@@ -22,4 +22,11 @@ describe('compile', function() {
       {tag: 'code', body: 'code'}
       ]);
   })
+
+  it('compile paragraph', function(){
+    var data = fs.readFileSync(__dirname + '/fixtures/paragraph-with-markup.txt', 'utf-8');
+    var result = compileForm(data);
+    expect(result[0].tag).toEqual('p')
+    expect(result[0].body.length).toEqual(3)
+  })
 });

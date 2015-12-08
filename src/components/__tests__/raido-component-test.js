@@ -8,7 +8,7 @@ var React = require('react'),
 describe('radio component', function() {
   it('render radio', function() {
     var vdom = SpecHelper.getVdom(RadioComponent, {
-      label:'test label',
+      label:['test label'],
       tip: 'test tip',
       options: [{tag:'option', label: ['test option']}]
     })

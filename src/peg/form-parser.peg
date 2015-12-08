@@ -3,41 +3,52 @@ start=
     {return expr;}
 
 expression =
-  q:question nq:newlineQuestion*
-    {return [q].concat(nq); }
+  s:section ns:newlineSection*
+    {return [s].concat(ns); }
 
-newlineQuestion =
-  [\n]+ q:question
-    {return q;}
+newlineSection =
+  [\n]+ s:section
+    {return s;}
 
-question =
-  t:typeMark lines:line*
+section =
+  '===' _* body:[^===]* _* '==='
+    {return {tag:'p', body:body.join('')}}
+ / t:typeMark lines:line*
     {
-      var quesion = {tag: t, label: lines.shift().label};
-      if(lines.length > 1 && lines[lines.length-1].tag === 'tip'){
-        quesion.tip = lines.pop().label;
+      var question = {tag: t, label: lines.shift(), options: []};
+      var options = lines.filter(function(l){ return l.tag === 'option' });
+
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        switch(l.tag){
+          case 'option':
+            question.options.push(l);
+          case 'tip':
+            question.tip = l.body
+        }
       }
-      quesion.options = lines;
-      return quesion;
+      return question;
     }
 
 line =
-  [\n]+ !typeMark t:lineBody
+  [\n]+ !typeMark ![===] t:lineBody
     {return t;}
 
 lineBody =
-  answerMark [ ]+ expr:validchar+
-    {return {label: expr.join(''), tag: 'answer'};}
-  /  "提示：" expr:validchar+
-    {return {tag: 'tip', label: expr.join('')}}
+  a:optionMark [ ]+ expr:validchar+
+    {return {label: expr.join(''), tag: 'option', answer: a};}
+  /  ">" [ ]+ expr:validchar+
+    {return {tag: 'tip', body: expr.join('')}}
   / expr:validchar+
-    {return {label: expr.join(''), tag: 'option'};}
+    {return expr.join('')}
 
 typeMark =
-  '单选题'
+  '#单选题#'
     {return 'radio'}
-  / '多选题'
+  / '#多选题#'
     {return 'checkbox'}
+  / '#段落#'
+    {return 'p'}
 
 _ =
   [ \n\t\r]
@@ -45,5 +56,9 @@ _ =
 validchar =
   [^\n\r]
 
-answerMark =
-  "*" / "＊"
+optionMark =
+    "[]"
+      {return false}
+ /  "[*]"
+      {return true}
+
