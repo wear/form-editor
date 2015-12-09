@@ -1,21 +1,27 @@
-start=
-  _* expr:expression _*
-    {return expr;}
+Start=
+  _* e:Expression ne:NewLineExpression* _*
+    {return [e].concat(ne); }
 
-expression =
-  s:section ns:newlineSection*
-    {return [s].concat(ns); }
+NewLineExpression =
+  [\n]+ e:Expression
+    {return e;}
 
-newlineSection =
-  [\n]+ s:section
-    {return s;}
+Expression =
+  Paragraph / Question
 
-section =
-  '===' _* body:[^===]* _* '==='
-    {return {tag:'p', body:body.join('')}}
- / t:typeMark lines:line*
+Paragraph =
+  '===' body:(!'===' .)* '==='
     {
-      var question = {tag: t, label: lines.shift(), options: []};
+      return {
+        tag: 'p',
+        body: body.map(function(item){ return item[1]; }).join('')
+      }
+    }
+
+Question =
+  tag:TypeMark lines:QuestioLine*
+    {
+      var question = {tag: tag, label: lines.shift(), options: []};
       var options = lines.filter(function(l){ return l.tag === 'option' });
 
       for (var i = 0; i < lines.length; i++) {
@@ -30,35 +36,41 @@ section =
       return question;
     }
 
-line =
-  [\n]+ !typeMark ![===] t:lineBody
-    {return t;}
+QuestioLine =
+  [\n]+ !('===' / TypeMark) body:LineBody
+    {return body;}
 
-lineBody =
-  a:optionMark [ ]+ expr:validchar+
-    {return {label: expr.join(''), tag: 'option', answer: a};}
-  /  ">" [ ]+ expr:validchar+
+LineBody =
+    Option
+  / Tip
+  / expr:Validchar+
+      {return expr.join('')}
+
+Option =
+  answer:AnswerMark [ ]+ expr:Validchar+
+    {return {label: expr.join(''), tag: 'option', answer: answer};}
+
+Tip =
+  ">" [ ]+ expr:Validchar+
     {return {tag: 'tip', body: expr.join('')}}
-  / expr:validchar+
-    {return expr.join('')}
 
-typeMark =
-  '#单选题#'
-    {return 'radio'}
-  / '#多选题#'
-    {return 'checkbox'}
-  / '#段落#'
-    {return 'p'}
-
-_ =
-  [ \n\t\r]
-
-validchar =
-  [^\n\r]
-
-optionMark =
+AnswerMark =
     "[]"
       {return false}
  /  "[*]"
       {return true}
+
+TypeMark =
+    '#单选题#'
+      {return 'radio'}
+  / '#多选题#'
+      {return 'checkbox'}
+  / '#段落#'
+      {return 'p'}
+
+_ =
+  [ \n\t\r]
+
+Validchar =
+  [^\n\r]
 

@@ -18,7 +18,7 @@ describe('parser', function() {
     var result = parse(data);
     expect(result.left).toEqual('left')
     expect(result.markup.tag).toEqual('code')
-    expect(result.markup.body).toEqual('pegjs\narithmetics.pegjs\n')
+    expect(result.markup.body).toEqual('pegjs\narithmetics.pegjs')
     expect(result.right).toEqual('right')
   });
 
@@ -48,6 +48,13 @@ describe('parser', function() {
     expect(result.markup.body).toEqual('/audios/audio')
     expect(result.right).toEqual('right')
   });
+
+  it('parse string with paragraph tag', function(){
+    var data = fs.readFileSync(__dirname + '/fixtures/row-paragraph.txt', 'utf-8');
+    var result = parse(data);
+    expect(result.markup.tag).toEqual('code')
+    expect(result.right.markup.tag).toEqual('image')
+  })
 
   it('parse string with media markup by sequence', function(){
     var data = fs.readFileSync(__dirname + '/fixtures/medie-sequence.txt', 'utf-8');

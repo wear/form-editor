@@ -34,7 +34,8 @@ describe('parser', function() {
     var data = fs.readFileSync(__dirname + '/fixtures/paragraph.txt', 'utf-8');
     var result = parse(data);
     expect(result[0].tag).toEqual('p')
-    expect(result[0].body.split('\n')[0]).toEqual("接受《经济参考报》采访的专家表示，房地产税改革的原则是对多套房、高端房进行调节，因此很多人并不需要缴纳房地产税。")
+    console.log(result)
+    expect(result[0].body.split('\n').filter(Boolean)).toEqual(['a','b','c','d'])
   })
 
   it('parse sequence questions', function(){
