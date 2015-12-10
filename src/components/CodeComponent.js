@@ -2,7 +2,7 @@ var React = require('react');
 
 var CodeComponent = React.createClass({
   propTypes: {
-    content: React.PropTypes.array.isRequired
+    content: React.PropTypes.string.isRequired
   },
   render: function(){
     var content = this.props.content.split('\n').map(function(line,index){
