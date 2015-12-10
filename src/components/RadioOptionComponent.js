@@ -1,6 +1,5 @@
 var React = require('react');
 var classNames = require('classNames');
-var RowComponent = require('./RowComponent');
 
 var RadioOptionComponent = React.createClass({
   propTypes: {
@@ -15,7 +14,7 @@ var RadioOptionComponent = React.createClass({
       <div className={optionClass}>
         <label>
           <input type="radio" name={this.props.name} />
-          <RowComponent lines={this.props.label} />
+          {this.props.label}
         </label>
       </div>
     )

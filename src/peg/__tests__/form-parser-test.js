@@ -33,7 +33,7 @@ describe('parser', function() {
   it('parse paragraph', function(){
     var data = fs.readFileSync(__dirname + '/fixtures/paragraph.txt', 'utf-8');
     var result = parse(data);
-    expect(result[0].tag).toEqual('p')
+    expect(result[0].tag).toEqual('section')
     expect(result[0].body.split('\n').filter(Boolean)).toEqual(['a','b','c','d'])
   })
 
@@ -42,7 +42,7 @@ describe('parser', function() {
     var result = parse(data);
 
     expect(result.length).toEqual(3)
-    expect(result[0].tag).toEqual('p')
+    expect(result[0].tag).toEqual('section')
     expect(result[1].tag).toEqual('radio')
     expect(result[1].options.length).toEqual(3)
     expect(result[2].tag).toEqual('checkbox')

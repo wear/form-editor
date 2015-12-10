@@ -2,7 +2,6 @@ jest.dontMock('../RadioComponent')
 
 var React = require('react'),
     RadioComponent = require('../RadioComponent'),
-    RowComponent = require('../RowComponent'),
     SpecHelper = require('../../SpecHelper');
 
 describe('radio component', function() {

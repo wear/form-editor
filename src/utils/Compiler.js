@@ -13,14 +13,12 @@ module.exports = function(expr){
 
   for (var i = parsedSections.length - 1; i >= 0; i--) {
     var section = parsedSections[i];
-    if(section.tag === 'p'){
+    if(section.tag === 'section'){
       section.body = RowCompiler(rowParser.parse(section.body));
     } else {
-      var parsedInputLabel = rowParser.parse(section.label);
-      section.label = RowCompiler(parsedInputLabel);
+      section.label = section.label;
       section.options.map(function(option){
-        var parsedOptionLabel = rowParser.parse(option.label);
-        option.label = RowCompiler(parsedOptionLabel);
+        option.label = option.label;
       })
     }
   };

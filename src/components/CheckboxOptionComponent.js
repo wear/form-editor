@@ -1,6 +1,5 @@
 var React = require('react');
 var classNames = require('classNames');
-var RowComponent = require('./RowComponent');
 
 var CheckboxOptionComponent = React.createClass({
   propTypes: {
@@ -11,11 +10,11 @@ var CheckboxOptionComponent = React.createClass({
   render: function(){
     var optionClass = classNames('checkbox', {'has-success' : this.props.isAnswer})
 
-    return(
+    return (
       <div className={optionClass}>
         <label>
           <input type="checkbox" name={this.props.name} />
-          <RowComponent lines={this.props.label} />
+          {this.props.label}
         </label>
       </div>
     )

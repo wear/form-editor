@@ -7,13 +7,13 @@ NewLineExpression =
     {return e;}
 
 Expression =
-  Paragraph / Question
+  Section / Question
 
-Paragraph =
+Section =
   '===' body:(!'===' .)* '==='
     {
       return {
-        tag: 'p',
+        tag: 'section',
         body: body.map(function(item){ return item[1]; }).join('')
       }
     }
@@ -65,8 +65,6 @@ TypeMark =
       {return 'radio'}
   / '#多选题#'
       {return 'checkbox'}
-  / '#段落#'
-      {return 'p'}
 
 _ =
   [ \n\t\r]

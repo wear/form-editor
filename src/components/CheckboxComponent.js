@@ -1,6 +1,5 @@
 var React = require('react');
 var classNames = require('classNames');
-var RowComponent = require('./RowComponent');
 var CheckboxOptionComponent = require('./CheckboxOptionComponent');
 
 
@@ -19,7 +18,7 @@ var CheckboxComponent = React.createClass({
 
     return (
       <div className='form-group'>
-        <label><RowComponent lines={this.props.label} /></label>
+        <label>{this.props.label}</label>
         {options}
         <div className='help-block'>{this.props.tip}</div>
       </div>
