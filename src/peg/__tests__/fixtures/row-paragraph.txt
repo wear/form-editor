@@ -1,0 +1,6 @@
+start
+code ```sdf```
+image ![image](image-string) test
+video ![video](video-string) test
+audio ![audio](audio-string) test
+end

@@ -1,37 +1,37 @@
-start =
-  _* expr:expression _*
-    {return expr;}
+Start =
+  Expression
 
-expression =
-    left:validchar* m:markup right:expression
-      {return {left:left.join(''), markup:m, right:right} }
-  / v:validchar*
-    {return v.join('')}
+Expression =
+  left:Validchar* m:Markup right:Expression
+      {return {left:left.join('').trim(), markup:m, right:right} }
+  / v:Validchar*
+    {return v.join('').trim()}
 
-markup =
-    code
-  / media
+Markup =
+    Code
+  / Image
 
+Code =
+  '```' v:(!'```' .)* '```'
+    {
+      return {
+        tag: 'code',
+        body: v.map(function(i){return i[1]}).join('').trim()
+      }
+    }
 
-media =
-  '![' t:mediaTag '](' m:mediaString+ ')'
-    {return {tag:t, body:m.join('')}}
+Image =
+  "![" tag:MediaTag "](" body:[^\n\r()\[\] ]* ")"
+      {
+        return {
+          tag: tag,
+          body: body.join("").trim()
+        }
+      }
 
-mediaTag =
+MediaTag =
   'image' / 'video' / 'audio'
 
-mediaString =
-  [^\n\r)]
-
-code =
-  _* '```' _* v:validcode+ _* '```' _*
-    {return {tag:'code', body:v.join('')};}
-
-validcode =
-  [^```]
-
-validchar =
-  [^\n\r```!]
-
-_ =
-  [ \n\t\r]
+Validchar =
+  a:(!(Code/Image) .)
+    {return a[1]}

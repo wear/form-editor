@@ -1,49 +1,74 @@
-start=
-  _* expr:expression _*
-    {return expr;}
+Start=
+  _* e:Expression ne:NewLineExpression* _*
+    {return [e].concat(ne); }
 
-expression =
-  q:question nq:newlineQuestion*
-    {return [q].concat(nq); }
+NewLineExpression =
+  [\n]+ e:Expression
+    {return e;}
 
-newlineQuestion =
-  [\n]+ q:question
-    {return q;}
+Expression =
+  Section / Question
 
-question =
-  t:typeMark lines:line*
+Section =
+  '===' body:(!'===' .)* '==='
     {
-      var quesion = {tag: t, label: lines.shift().label};
-      if(lines.length > 1 && lines[lines.length-1].tag === 'tip'){
-        quesion.tip = lines.pop().label;
+      return {
+        tag: 'section',
+        body: body.map(function(item){ return item[1]; }).join('')
       }
-      quesion.options = lines;
-      return quesion;
     }
 
-line =
-  [\n]+ !typeMark t:lineBody
-    {return t;}
+Question =
+  tag:TypeMark lines:QuestioLine*
+    {
+      var question = {tag: tag, label: lines.shift(), options: []};
+      var options = lines.filter(function(l){ return l.tag === 'option' });
 
-lineBody =
-  answerMark [ ]+ expr:validchar+
-    {return {label: expr.join(''), tag: 'answer'};}
-  /  "提示：" expr:validchar+
-    {return {tag: 'tip', label: expr.join('')}}
-  / expr:validchar+
-    {return {label: expr.join(''), tag: 'option'};}
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        switch(l.tag){
+          case 'option':
+            question.options.push(l);
+          case 'tip':
+            question.tip = l.body
+        }
+      }
+      return question;
+    }
 
-typeMark =
-  '单选题'
-    {return 'radio'}
-  / '多选题'
-    {return 'checkbox'}
+QuestioLine =
+  [\n]+ !('===' / TypeMark) body:LineBody
+    {return body;}
+
+LineBody =
+    Option
+  / Tip
+  / expr:Validchar+
+      {return expr.join('')}
+
+Option =
+  answer:AnswerMark [ ]+ expr:Validchar+
+    {return {label: expr.join(''), tag: 'option', answer: answer};}
+
+Tip =
+  ">" [ ]+ expr:Validchar+
+    {return {tag: 'tip', body: expr.join('')}}
+
+AnswerMark =
+    "[]"
+      {return '0'}
+ /  "[*]"
+      {return '1'}
+
+TypeMark =
+    '#单选题#'
+      {return 'radio'}
+  / '#多选题#'
+      {return 'checkbox'}
 
 _ =
   [ \n\t\r]
 
-validchar =
+Validchar =
   [^\n\r]
 
-answerMark =
-  "*" / "＊"

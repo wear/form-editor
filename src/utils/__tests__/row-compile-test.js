@@ -17,6 +17,7 @@ describe('compile row', function() {
     var expr = {left:'left', markup:{tag:'code', body:'code'}, right:{
       left:'inner-left', markup:{tag:'image', body:'image'}, right:'inner-right'
     }}
+
     expect(compileRow(expr)).toEqual(['left',
                     {tag:'code', body: 'code'},
                     'inner-left',

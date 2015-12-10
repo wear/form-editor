@@ -47,6 +47,7 @@
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/pegjs",
       "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/classNames",
       "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/src/SpecHelper"
     ],

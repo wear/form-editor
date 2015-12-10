@@ -1,18 +1,24 @@
-单选题
-让学生看图，运用经纬网的知识，说出北京所在的地理位置。```test```
-记忆@识别(recognizing)
-记忆@回忆(recalling)
-理解@解释(interpreting)
+===
+段落是文章中最基本的单位。内容上它具有一个相对完整的意思；在文章中，段具有换行的标。段是由句子或句群组成的，在文章中用于体现作者的思路发展或全篇文章的层次。有的段落只有一个句子，称为独句段，独句段一般是文章的开头段、结尾段、过渡段强调段等特殊的段落。多数段落包括不止一个句子或句群，叫多句段。中文段落开头前一般空两个格。
+段落也常用于日常用语中。例：“现在的工作告一段落”，表示达到一定程度暂停的意思。
+===
 
-多选题
+
+#单选题#
+让学生看图，运用经纬网的知识，说出北京所在的地理位置。```test```
+[] 记忆@识别(recognizing)
+[] 记忆@回忆(recalling)
+[] 理解@解释(interpreting)
+
+#多选题#
 要求学生在一个文字题中圈划出有关数字和删去无关数字。![image](http://nathansuniversity.com/gfx/logo.png)
-分析@区分(differentiating)
-分析@组织(organizing)
-分析@归属(attributing)
-评价@核查(checking)
-评价@评判(critiquing)
-创造@生成(generating)
-创造@计划(planning)
-创造@产生(producing)
+[] 分析@区分(differentiating)
+[] 分析@组织(organizing)
+[] 分析@归属(attributing)
+[] 评价@核查(checking)
+[] 评价@评判(critiquing)
+[] 创造@生成(generating)
+[] 创造@计划(planning)
+[] 创造@产生(producing)
 
 
