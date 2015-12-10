@@ -8,14 +8,17 @@ var SectionComponent = React.createClass({
     lines: React.PropTypes.array.isRequired
   },
   render: function() {
-    var content = this.props.lines.map(function(item, index){
-      var line = compileLine(item, index);
+    var counter = 0;
+    var content = this.props.lines.map(function(item){
+      var line = compileLine(item, counter);
       if((typeof line) === 'string'){
-        line.split('\n').map(function(str,i){
-          var key = "line_" + i;
+        return line.split('\n').map(function(str,i){
+          var key = "line_" + counter;
+          counter += 1;
           return (<span key={key}>{str}<br /></span>)
         })
       }
+      counter += 1;
       return line;
     }).reduce(function(a, b) {
       return a.concat(b);
