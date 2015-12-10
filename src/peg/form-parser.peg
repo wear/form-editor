@@ -56,9 +56,9 @@ Tip =
 
 AnswerMark =
     "[]"
-      {return false}
+      {return '0'}
  /  "[*]"
-      {return true}
+      {return '1'}
 
 TypeMark =
     '#单选题#'
