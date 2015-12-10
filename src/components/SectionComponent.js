@@ -1,6 +1,7 @@
 var React = require('react');
     CodeComponent = require('./CodeComponent'),
     VideoComponent = require('./VideoComponent'),
+    ImageboxComponent = require('./ImageboxComponent'),
     AudioComponent = require('./AudioComponent');
 
 var SectionComponent = React.createClass({
@@ -38,7 +39,7 @@ var compileLine = function(line, key){
       case 'code':
         return (<CodeComponent key={key}  content={line.body} />);
       case 'image':
-        return (<img key={key} src={line.body} />)
+        return <ImageboxComponent src={line.body} key={key} />
       case 'video':
         return <VideoComponent key={key} src={line.body} />
       case 'audio':
