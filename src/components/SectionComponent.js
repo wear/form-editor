@@ -2,6 +2,7 @@ var React = require('react');
     CodeComponent = require('./CodeComponent'),
     VideoComponent = require('./VideoComponent'),
     ImageboxComponent = require('./ImageboxComponent'),
+    SectionLineComponent = require('./SectionLineComponent'),
     AudioComponent = require('./AudioComponent');
 
 var SectionComponent = React.createClass({
@@ -9,25 +10,12 @@ var SectionComponent = React.createClass({
     lines: React.PropTypes.array.isRequired
   },
   render: function() {
-    var counter = 0;
-    var content = this.props.lines.map(function(item){
-      var line = compileLine(item, counter);
-      if((typeof line) === 'string'){
-        return line.split('\n').map(function(str,i){
-          var key = "line_" + counter;
-          counter += 1;
-          return (<span key={key}>{str}<br /></span>)
-        })
-      }
-      counter += 1;
-      return line;
-    }).reduce(function(a, b) {
-      return a.concat(b);
-    }, []);
+    var content = this.props.lines.map(function(item, index){
+      var key = "section-line-" + index;
+      return compileLine(item, key);
+    });
 
-    return (
-      <div className='section'>{content}</div>
-    );
+    return (<div className='section'>{content}</div>);
   }
 
 });
@@ -48,7 +36,7 @@ var compileLine = function(line, key){
         // nope
     }
   }
-  return line;
+  return <SectionLineComponent key={key} content={line} />
 }
 
 

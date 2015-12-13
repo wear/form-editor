@@ -1,3 +1,21 @@
+{
+  function generateQuestion(tag, lines){
+    var question = {tag: tag, label: lines.shift(), options: []};
+    var options = lines.filter(function(l){ return l.tag === 'option' });
+
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i];
+      switch(l.tag){
+        case 'option':
+          question.options.push(l);
+        case 'tip':
+          question.tip = l.body
+      }
+    }
+    return question;
+  }
+}
+
 Start=
   _* e:Expression ne:NewLineExpression* _*
     {return [e].concat(ne); }
@@ -21,19 +39,7 @@ Section =
 Question =
   tag:TypeMark lines:QuestioLine*
     {
-      var question = {tag: tag, label: lines.shift(), options: []};
-      var options = lines.filter(function(l){ return l.tag === 'option' });
-
-      for (var i = 0; i < lines.length; i++) {
-        var l = lines[i];
-        switch(l.tag){
-          case 'option':
-            question.options.push(l);
-          case 'tip':
-            question.tip = l.body
-        }
-      }
-      return question;
+      return generateQuestion(tag, lines);
     }
 
 QuestioLine =

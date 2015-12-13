@@ -1,5 +1,6 @@
 var compileRow = function(expr){
-  if((typeof expr) == 'string'){
+  if(typeof expr == 'string' || Array.isArray(expr)){
+    // when image/video/audio url
     return [expr];
   } else {
     return [

@@ -1,5 +1,5 @@
 var React = require('react');
-var classNames = require('classNames');
+var classNames = require('classnames');
 var RadioOptionComponent = require('./RadioOptionComponent.js')
 
 var RadioComponent = React.createClass({

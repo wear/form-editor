@@ -1,11 +1,23 @@
+{
+  function replaceNewline(str){
+    return str.split('\n').map(function(str){
+      return str;
+    });
+  }
+}
+
 Start =
   Expression
 
 Expression =
   left:Validchar* m:Markup right:Expression
-      {return {left:left.join('').trim(), markup:m, right:right} }
+      {return {
+        left: replaceNewline(left.join('').trim()),
+        markup:m,
+        right:right}
+      }
   / v:Validchar*
-    {return v.join('').trim()}
+    {return replaceNewline(v.join('').trim())}
 
 Markup =
     Code
@@ -14,9 +26,10 @@ Markup =
 Code =
   '```' v:(!'```' .)* '```'
     {
+      var content = v.map(function(i){return i[1]}).join('').trim();
       return {
         tag: 'code',
-        body: v.map(function(i){return i[1]}).join('').trim()
+        body: replaceNewline(content)
       }
     }
 
